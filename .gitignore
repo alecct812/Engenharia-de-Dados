@@ -1,0 +1,36 @@
+# ---------------------------------------------------------------- credenciais
+# NUNCA versionar. O historico do git e permanente: um segredo commitado uma vez
+# continua acessivel mesmo depois de apagado num commit seguinte.
+cred.txt
+credenciais.txt
+credentials
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+.aws/
+
+# ------------------------------------------------------------ dados gerados
+# Saida dos geradores. Reproduzivel pela semente, nao pelo repositorio.
+saida/
+**/saida/
+*.json.gz
+
+# -------------------------------------------------- contornos de ambiente local
+# Especificos da maquina de quem roda, nao do exercicio.
+ambiente.sh
+local/
+**/local/
+
+# ------------------------------------------------------------------- Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ------------------------------------------------------------ sistema e editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
