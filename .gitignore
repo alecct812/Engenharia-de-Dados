@@ -34,3 +34,21 @@ venv/
 Thumbs.db
 .vscode/
 .idea/
+
+# ---------------------------------------------------------------- Terraform
+# O state descreve a infraestrutura inteira e o enunciado proibe versiona-lo.
+# O diretorio .terraform/ guarda os providers baixados (centenas de MB) e e
+# reconstruido por "terraform init". O plano binario e efemero.
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+crash.log
+crash.*.log
+*.tfplan
+tfplan.bin
+.terraform.lock.hcl
+
+# terraform.tfvars normalmente nao se versiona, mas o Exercicio 02 pede o
+# arquivo no PR: sao as DECISOES 04 e 05, e nao ha segredo nele.
+!**/terraform.tfvars
