@@ -13,7 +13,7 @@ As justificativas estão em `DECISOES.md`; aqui está a medição que as sustent
 
 ## 1. A execução, comando a comando
 
-**Ambiente.** A conta estava limpa antes de começar — o que existir no fim é nosso,
+**Ambiente.** A conta estava limpa antes de começar, o que existir no fim é nosso,
 e precisa sumir no `destroy`.
 
 ```
@@ -73,7 +73,7 @@ Total Objects: 8
 
 ## 2. Os dados, medidos antes de decidir
 
-Bytes exatos por partição e acumulado — é esta tabela que decide o teto:
+Bytes exatos por partição e acumulado: é esta tabela que decide o teto:
 
 ```
 dt=2026-08-25      3.408.477      acumulado    3.408.477
@@ -196,7 +196,7 @@ BYTES  : 27268865           <- idêntico ao Total Size do S3
 total  : 128000
 ```
 
-Nada mudou no catálogo entre as duas medições — só o dado apareceu embaixo dele.
+Nada mudou no catálogo entre as duas medições, só o dado apareceu embaixo dele.
 Quando catálogo e dado discordam, quem responde é o catálogo, em silêncio.
 
 ### O casamento `location` × chave real no S3
@@ -243,7 +243,7 @@ controle  5 dias   CANCELLED   15.728.640   Bytes scanned limit was exceeded
 ```
 
 A política declarada e a política observada são a mesma: até 4 dias passa, do 5º em
-diante morre. O Athena **para de varrer ao atingir o corte** — por isso os dois casos
+diante morre. O Athena **para de varrer ao atingir o corte** , por isso os dois casos
 barrados reportam 15.728.640, e não os 27,3 MB ou 17,0 MB que teriam varrido.
 
 A consulta de 4 dias varreu **13.634.989** bytes, 1.113 a mais que a soma dos
@@ -358,7 +358,7 @@ Isolamos em dois passos, para provar que não era edição nossa. Primeiro, o
 ```
 
 **Causa raiz:** o HCL2 aceita no máximo um argumento em bloco de uma linha, e
-`columns { name = ... type = ... }` tem dois. São 18 blocos assim — 9 na tabela e 9
+`columns { name = ... type = ... }` tem dois. São 18 blocos assim: 9 na tabela e 9
 na partição. Expandimos os 18 para a forma multilinha, que é exatamente o que
 `terraform fmt` gera; nenhuma coluna, nome ou tipo mudou.
 
