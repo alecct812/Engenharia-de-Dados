@@ -153,12 +153,12 @@ este Athena devolve no corte por `BytesScannedCutoffPerQuery` é **`CANCELLED`**
 `StateChangeReason = "Bytes scanned limit was exceeded"`. As duas condições do teste
 são `[ "$lest" = "FAILED" ] && [ "$larga_morreu" = "sim" ]`: a segunda casa, a
 primeira não. Por isso ele imprime `larga_barrada=0` na linha seguinte à sua própria
-evidência de que o freio disparou. O requisito do enunciado — o teto mata a larga e
-deixa passar a estreita — está atendido e medido. **Não alteramos o script:** a saída
+evidência de que o freio disparou. O requisito do enunciado: o teto mata a larga e
+deixa passar a estreita, está atendido e medido. **Não alteramos o script:** a saída
 dele é o aceite, e adulterar o verificador para ganhar ponto seria trocar a medição
 pelo resultado dela. É a mesma observação que registramos no lab01.
 
-**Sobre o `main.tf` do andaime.** O arquivo distribuído não compila: os 18 blocos
+**Sobre o `main.tf` .** O arquivo distribuído não compila: os 18 blocos
 `columns { name = ... type = ... }` põem dois argumentos num bloco de uma linha, o que
 o HCL2 não aceita. Confirmamos que o defeito vem do pacote, e não de edição nossa,
 rodando o `terraform fmt` no arquivo original intocado — mesmo erro — e expandindo um
