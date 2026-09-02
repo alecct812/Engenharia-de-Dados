@@ -10,6 +10,7 @@ Um diretório por laboratório, na raiz do repositório:
 
 ```
 lab01/    Exercício 01 — o schema é seu
+lab02/    Exercício 02 — do zero em Terraform
 ```
 
 Cada laboratório entra por um pull request próprio. A evidência de execução vai colada
@@ -20,6 +21,7 @@ no corpo do PR, junto com o que os critérios de aceite pedem.
 | Pasta | Assunto | Ferramenta |
 | --- | --- | --- |
 | `lab01` | Lake mínimo com o schema **declarado** em vez de inferido: `AWS::Glue::Table` e `AWS::Glue::Partition` escritos à mão, sem Crawler, e um teto de bytes por consulta no Athena | CloudFormation |
+| `lab02` | O mesmo lake construído **do zero**, com as decisões de schema, número de partições e teto de bytes tomadas e justificadas por nós, e `destroy` provado limpo | Terraform, state local |
 
 ## Convenções
 
@@ -34,6 +36,11 @@ commit, não depois.
 **Dado gerado não é versionado.** Os geradores dos laboratórios produzem centenas de MB
 a partir de uma semente. Guardamos a semente e o comando, não o resultado — quem quiser
 reproduzir roda o gerador e obtém os mesmos bytes.
+
+**State do Terraform não é versionado.** A partir do `lab02` o provisionamento é em
+Terraform com state local, e o `terraform.tfstate` fica de fora do repositório — ele
+descreve a infraestrutura inteira e o enunciado proíbe versioná-lo. O `.gitignore` da
+raiz bloqueia ele, o `.terraform/` e os planos binários.
 
 **A stack é derrubada ao fim de cada laboratório.** Recurso que sobrevive ao `destroy`
 continua cobrando, e a conta é compartilhada com a turma inteira.
