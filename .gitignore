@@ -34,3 +34,28 @@ venv/
 Thumbs.db
 .vscode/
 .idea/
+
+# ---------------------------------------------------------------- Terraform
+# O state descreve a infraestrutura inteira e os enunciados proibem versiona-lo.
+# O diretorio .terraform/ guarda os providers baixados (centenas de MB) e e
+# reconstruido por "terraform init". O plano binario e efemero.
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+crash.log
+crash.*.log
+*.tfplan
+tfplan.bin
+
+# O backend.hcl nomeia a conta; so o .example, com placeholder, e versionado.
+backend.hcl
+
+# O .terraform.lock.hcl NAO entra aqui de proposito: ele trava a versao exata do
+# provider, e sem ele um "~> 5.0" pode resolver para outra versao amanha e um plan
+# que hoje fecha limpo deixar de fechar. E a recomendacao da HashiCorp e, no
+# Exercicio 03, a prova da entrega depende disso.
+
+# terraform.tfvars normalmente nao se versiona, mas os exercicios pedem o arquivo
+# no PR: sao as decisoes do aluno, e nao ha segredo nele.
+!**/terraform.tfvars

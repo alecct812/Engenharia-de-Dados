@@ -1,0 +1,6 @@
+# Você cria o backend.hcl durante o exercício (Passo do backend).
+bucket         = "eda-tfstate-CONTA"
+key            = "aula12/terraform.tfstate"
+region         = "us-east-1"
+dynamodb_table = "eda-tflock"
+encrypt        = true
