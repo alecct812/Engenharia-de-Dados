@@ -1,0 +1,5 @@
+# Scripts precisam de fim de linha LF mesmo quando clonados no Windows.
+# Com core.autocrlf=true (padrao do Git for Windows) um .sh vem com CRLF e o
+# bash quebra em "$'\r': command not found" antes da primeira linha util.
+*.sh text eol=lf
+*.py text eol=lf
