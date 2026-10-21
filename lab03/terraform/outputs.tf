@@ -1,5 +1,5 @@
 # =============================================================================
-# CONTRATO — o verifica.sh le estes cinco nomes. A refatoracao os PRESERVA:
+# CONTRATO: o verifica.sh le estes cinco nomes. A refatoracao os PRESERVA:
 # mesmos nomes, mesmos valores; muda so de onde vem o valor, que agora e a
 # fronteira de saida do modulo em vez do recurso direto.
 # =============================================================================

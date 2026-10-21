@@ -1,6 +1,6 @@
 # =============================================================================
 # A fronteira de ENTRADA do modulo: o minimo que ele precisa receber para
-# construir o lake. Tudo que nao esta aqui, o modulo nao ve — e essa e a
+# construir o lake. Tudo que nao esta aqui, o modulo nao ve, e essa e a
 # vantagem de embrulhar: a raiz nao consegue vazar estado para dentro dele
 # por acidente.
 #

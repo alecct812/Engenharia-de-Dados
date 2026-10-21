@@ -120,7 +120,6 @@ objetos em s3://eda-tfstate-grupo02 : 0
 terraform/
 |-- main.tf              agora só um  module "lake"
 |-- outputs.tf           os 5 do contrato, lendo do módulo
-|-- backend.tf           backend "s3" com workspace_key_prefix
 |-- variables.tf         intocado
 |-- providers.tf         intocado
 |-- versions.tf          intocado
@@ -129,6 +128,9 @@ terraform/
     |-- variables.tf     sufixo, teto_bytes
     +-- outputs.tf       a fronteira de saída
 ```
+
+O `backend.tf` ainda não existe nesta etapa: ele só entra na seção 5, depois do plan
+limpo com o estado ainda local.
 
 Verificação de que nada foi rebatizado, comparando o pacote original contra o módulo:
 
@@ -141,6 +143,11 @@ $ diff <(grep -oE '^resource "[a-z_]+" "[a-z_]+"' original/main.tf) \
 Com o código em módulo e o estado ainda na raiz, o `plan` pede o pior:
 
 ```
+$ terraform init
+Initializing modules...
+- lake in modules\lake
+Terraform has been successfully initialized!
+
 $ terraform plan -var="sufixo=grupo02"
 
 DESTRUIR (endereços antigos)             CRIAR (endereços novos)
@@ -164,7 +171,7 @@ Nenhuma mudança de output apareceu no plan. **Não aplicamos.**
 
 ---
 
-## 4. O `state mv`, e a prova de que a AWS não foi tocada
+## 4. O `state mv`, e por que a AWS não foi tocada
 
 ```
 $ terraform state mv aws_s3_bucket.lake  module.lake.aws_s3_bucket.lake
@@ -172,8 +179,7 @@ Move "aws_s3_bucket.lake" to "module.lake.aws_s3_bucket.lake"
 Successfully moved 1 object(s).
 ```
 
-Seis vezes, uma por recurso. Comparamos o estado antes e depois: se algum `mv`
-tivesse recriado alguma coisa, o `id` mudaria.
+Seis vezes, uma por recurso. Comparamos o estado antes e depois, recurso a recurso:
 
 ```
 recurso                                  módulo antes  módulo depois  id igual?
@@ -184,7 +190,7 @@ aws_s3_bucket.lake                       (raiz)        module.lake    SIM
 aws_s3_bucket.results                    (raiz)        module.lake    SIM
 aws_s3_bucket_public_access_block.lake   (raiz)        module.lake    SIM
 
-6/6 recursos com o MESMO id, nenhum objeto foi recriado
+6/6 recursos com o MESMO id
 ```
 
 Os ids, para o registro:
@@ -198,8 +204,14 @@ aws_s3_bucket.results                  eda-a12-grupo02-results
 aws_s3_bucket_public_access_block.lake eda-a12-grupo02-lake
 ```
 
-O único campo que mudou no estado foi `module`, de vazio para `module.lake`. Um
-bucket destruído e recriado não teria como manter o mesmo id.
+O único campo que mudou no estado foi `module`, de vazio para `module.lake`. Os ids
+iguais, sozinhos, não provam que nada foi recriado: o id destes recursos é o próprio
+nome, e um bucket destruído e recriado com o mesmo nome voltaria com o mesmo id. Eles
+mostram que cada recurso manteve a sua identidade no estado. O que garante que a AWS
+não foi tocada é o procedimento: o `state mv` só reescreve o arquivo de estado, sem
+nenhuma chamada à AWS, e nenhum `apply` foi executado entre o código movido e o plan
+limpo da seção 5. Comparar a data de criação de cada recurso antes e depois seria uma
+prova independente, mas não a registramos.
 
 ---
 
@@ -444,26 +456,44 @@ seguinte encontra `dev` e o critério passa; apenas a linha impressa fica feia.
 
 ## 10. Como reproduzir
 
+A pasta `lab03/terraform/` guarda a stack já refatorada, com o módulo e o
+`backend.tf`. Para subi-la e rodar a verificação:
+
 ```bash
 export AWS_PROFILE=eda AWS_REGION=us-east-1 SUFIXO=grupo02 LC_ALL=C.UTF-8
 
 cd lab03/terraform
-cp backend.hcl.example backend.hcl     # e preencha bucket com o seu
-terraform init
-terraform apply -var="sufixo=$SUFIXO"  # 6 recursos, estado local
-
-# a refatoração já está no código; para reproduzir o caminho inteiro, parta de
-# uma stack plana, mova o código para modules/lake/ e então:
-terraform state mv aws_s3_bucket.lake module.lake.aws_s3_bucket.lake   # e os outros 5
-terraform plan -detailed-exitcode -var="sufixo=$SUFIXO"                # rc=0
-
-terraform init -migrate-state -force-copy -backend-config=backend.hcl
+cp backend.hcl.example backend.hcl           # e preencha bucket com o seu
+terraform init -backend-config=backend.hcl
+terraform apply -var="sufixo=$SUFIXO"        # 6 recursos, estado no backend remoto
 terraform workspace new dev && terraform workspace select default
 
 cd ../verificacao && ./verifica.sh
 cd ../terraform && terraform destroy -var="sufixo=$SUFIXO"
 cd ../verificacao && ./verifica.sh --pos-destroy
 ```
+
+Refazer o caminho da refatoração exige outro ponto de partida: a pasta `terraform/`
+do pacote original, com a stack plana na raiz, sem `modules/`, sem `backend.tf` e com
+estado local. A partir dela, na ordem das seções 2 a 6:
+
+```bash
+cd terraform                                 # a do pacote original
+terraform init                               # depois de expandir os três columns (9.1)
+terraform apply -var="sufixo=$SUFIXO"        # 6 recursos, estado local
+
+# mova os recursos para modules/lake/ e deixe na raiz só o module "lake" (seção 3)
+terraform init                               # instala o módulo
+terraform state mv aws_s3_bucket.lake module.lake.aws_s3_bucket.lake   # e os outros 5
+terraform plan -detailed-exitcode -var="sufixo=$SUFIXO"                # rc=0
+
+# acrescente o backend.tf e o backend.hcl, e migre o estado (seção 5)
+terraform init -migrate-state -force-copy -backend-config=backend.hcl
+terraform workspace new dev && terraform workspace select default
+```
+
+Dali em diante, a verificação e o `destroy` seguem os três últimos comandos do bloco
+anterior.
 
 O `backend.hcl` não está versionado, porque nomeia a conta. O `.example` ao lado tem
 a estrutura com um placeholder no lugar do nome do bucket.

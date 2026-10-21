@@ -48,8 +48,7 @@ mas ela também ficaria lá para sempre, e alguém teria que decidir quando remo
 rubrica aceita os dois; escolhemos o que deixa o código limpo e resolve o estado de
 uma vez, porque o estado aqui é único e remoto, e somos nós os únicos a operá-lo.
 
-> **Medido.** Comparamos o estado antes e depois, recurso a recurso. Se algum `mv`
-> tivesse recriado alguma coisa, o `id` mudaria:
+> **Medido.** Comparamos o estado antes e depois, recurso a recurso:
 >
 > ```
 > recurso                                  módulo antes  módulo depois  id igual?
@@ -60,13 +59,18 @@ uma vez, porque o estado aqui é único e remoto, e somos nós os únicos a oper
 > aws_s3_bucket.results                    (raiz)        module.lake    SIM
 > aws_s3_bucket_public_access_block.lake   (raiz)        module.lake    SIM
 >
-> 6/6 recursos com o MESMO id, nenhum objeto foi recriado
+> 6/6 recursos com o MESMO id
 > ```
 >
-> **O único campo que mudou foi `module`**, de vazio para `module.lake`. O `state mv`
-> reescreve o mapa, não o território: nenhuma chamada à AWS acontece, e é por isso
-> que identificadores como `eda-a12-grupo02-lake` sobrevivem intactos: um bucket
-> destruído e recriado não teria como manter o mesmo id.
+> **O único campo que mudou foi `module`**, de vazio para `module.lake`. A tabela,
+> porém, não prova sozinha que nada foi recriado: o id destes recursos é o próprio
+> nome, e um bucket destruído e recriado como `eda-a12-grupo02-lake` voltaria com o
+> mesmo id. Os ids iguais mostram que cada recurso manteve a sua identidade no estado.
+> A garantia de que a AWS não foi tocada vem do procedimento: o `state mv` reescreve o
+> mapa, não o território, sem nenhuma chamada à AWS, e nenhum `apply` foi executado
+> entre o código movido e o `plan` limpo da DECISÃO 04. Uma prova independente
+> exigiria comparar a data de criação de cada recurso antes e depois da operação, o
+> que não registramos.
 
 ## DECISÃO 03: workspace, e a stack fica no `default`
 

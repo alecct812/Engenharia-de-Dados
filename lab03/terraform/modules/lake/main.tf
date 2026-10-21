@@ -1,13 +1,13 @@
 # =============================================================================
-# modulo lake — os seis recursos que antes viviam na raiz.
+# modulo lake: os seis recursos que antes viviam na raiz.
 #
 # Vieram da raiz SEM NENHUMA ALTERACAO: mesmos nomes de bloco, mesmas
-# propriedades, mesmas expressoes. Refatorar e reorganizar, nao rebatizar —
+# propriedades, mesmas expressoes. Refatorar e reorganizar, nao rebatizar:
 # renomear qualquer um deles faria o Terraform tratar como recurso novo, e o
 # plan deixaria de ser limpo.
 #
 # O que muda nao esta aqui: e o ENDERECO no estado, que ganha o prefixo
-# module.lake. — e isso quem conserta e o `terraform state mv`, nao o codigo.
+# `module.lake`. Quem conserta isso e o `terraform state mv`, nao o codigo.
 # =============================================================================
 
 resource "aws_s3_bucket" "lake" {

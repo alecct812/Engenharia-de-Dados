@@ -4,7 +4,7 @@
 # precisar alcancar recurso nenhum la dentro.
 #
 # Quem quiser o nome do bucket pede module.lake.bucket_name. Ninguem de fora
-# referencia module.lake.aws_s3_bucket.lake.bucket — isso seria furar a
+# referencia module.lake.aws_s3_bucket.lake.bucket: isso seria furar a
 # fronteira, e prenderia a raiz ao nome interno do recurso.
 # =============================================================================
 

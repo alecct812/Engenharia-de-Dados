@@ -1,7 +1,7 @@
 # =============================================================================
-# BACKEND REMOTO — a cura que o Exercicio 02 prometeu.
+# BACKEND REMOTO: a cura que o Exercicio 02 prometeu.
 #
-# O bloco fica VAZIO de propositio, com uma excecao: os valores concretos
+# O bloco fica VAZIO de proposito, com uma excecao: os valores concretos
 # (bucket, key, region, tabela de trava) vivem em backend.hcl, que NAO e
 # versionado, porque nomeia a conta. O init recebe o arquivo com
 # -backend-config=backend.hcl.
