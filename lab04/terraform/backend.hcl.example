@@ -1,0 +1,7 @@
+# cp backend.hcl.example backend.hcl  e troque CONTA e XX. Depois:
+#   terraform init -backend-config=backend.hcl
+bucket         = "eda-tfstate-CONTA"
+key            = "aula21/grupo-XX/terraform.tfstate"
+region         = "us-east-1"
+dynamodb_table = "eda-tflock"
+encrypt        = true

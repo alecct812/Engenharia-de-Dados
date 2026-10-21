@@ -1,0 +1,4 @@
+# Scripts com fim de linha LF mesmo quando clonados no Windows: com
+# core.autocrlf=true um .sh viria com CRLF e o bash quebraria na primeira linha.
+*.sh text eol=lf
+*.py text eol=lf
