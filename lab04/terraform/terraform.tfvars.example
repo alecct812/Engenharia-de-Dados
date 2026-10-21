@@ -1,0 +1,10 @@
+# cp terraform.tfvars.example terraform.tfvars  e preencha.
+# Os valores abaixo FALHAM de propósito: o plan recusa até você decidir.
+turma  = "TURMA-A"
+owner  = "seu-email@cesar.school"
+sufixo = "grupoXX"            # só minúsculas e números
+
+chaves_particao      = []     # ← DECISÃO 01
+arquivos_por_pasta   = 0      # ← DECISÃO 02
+meta_bytes_madrugada = 0      # ← DECISÃO 03
+teto_bytes           = 0      # ← DECISÃO 04
