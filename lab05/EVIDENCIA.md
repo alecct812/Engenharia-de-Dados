@@ -2,10 +2,12 @@
 
 **Grupo 02** · Turma 2026-2 · sufixo `grupo02` · região `us-east-1` · executado em 2026-11-04
 
-A execução na ordem em que foi feita, com a saída dos comandos sem edição. O estado ficou
+A execução na ordem em que foi feita, com a saída dos comandos. O estado ficou
 no backend remoto do Exercício 04 (`eda-tfstate-grupo02`, trava `eda-tflock`), com a chave
 `aula-25/grupo02/terraform.tfstate`. O apply e o destroy foram feitos a partir de um
 `terraform plan -out` revisado antes de aplicar.
+Nas linhas do apply, o número da conta foi trocado por `<conta>`; o resto da saída está como
+saiu do terminal.
 
 Ordem: apply, plan limpo, carga da raw, atraso medido na raw, job (1ª execução), consulta,
 job (2ª execução, o mesmo comando), consulta, `verifica.sh` (que roda o job pela 3ª vez),
@@ -13,11 +15,11 @@ backfill de 2026-11-01, destroy e `verifica.sh --pos-destroy`.
 
 ## terraform apply
 ```
-aws_glue_catalog_database.lake: Creation complete after 2s [id=325583868777:eda_a25_grupo02]
+aws_glue_catalog_database.lake: Creation complete after 2s [id=<conta>:eda_a25_grupo02]
 aws_iam_role.job: Creation complete after 2s [id=eda-a25-grupo02-glue]
 aws_iam_role_policy_attachment.glue: Creation complete after 0s [id=eda-a25-grupo02-glue-20261104120905910000000001]
-aws_glue_catalog_table.corridas: Creation complete after 0s [id=325583868777:eda_a25_grupo02:corridas]
-aws_glue_catalog_table.raw: Creation complete after 0s [id=325583868777:eda_a25_grupo02:raw_corridas]
+aws_glue_catalog_table.corridas: Creation complete after 0s [id=<conta>:eda_a25_grupo02:corridas]
+aws_glue_catalog_table.raw: Creation complete after 0s [id=<conta>:eda_a25_grupo02:raw_corridas]
 aws_s3_bucket.lake: Creation complete after 4s [id=eda-a25-lake-grupo02]
 aws_s3_object.script: Creation complete after 0s [id=scripts/pipeline-corridas.py]
 aws_iam_role_policy.bucket: Creation complete after 0s [id=eda-a25-grupo02-glue:bucket-rw]
