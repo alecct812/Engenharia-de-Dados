@@ -1,0 +1,7 @@
+# Copie para backend.hcl (NÃO vai para o repositório). Use o mesmo bucket e a mesma
+# tabela de lock do backend.hcl do Exercício 04; troque só a key.
+bucket         = "TROQUE-pelo-bucket-de-estado-da-disciplina"
+key            = "aula-25/SEU-SUFIXO/terraform.tfstate"
+region         = "us-east-1"
+dynamodb_table = "TROQUE-pela-tabela-de-lock-da-disciplina"
+encrypt        = true

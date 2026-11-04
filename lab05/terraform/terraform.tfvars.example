@@ -1,0 +1,8 @@
+# Copie para terraform.tfvars e preencha. Os valores abaixo FALHAM de propósito:
+# o plan recusa até o grupo decidir. Cada decisão vira uma frase com número no DECISOES.md.
+turma  = "TURMA-A"
+sufixo = "grupo00" # só minúsculas e números
+
+modo_escrita       = "" # DECISÃO 01: append ou sobrescrever
+chave_dedup        = "" # DECISÃO 02: corrida_id ou nenhuma
+janela_atraso_dias = -1 # DECISÃO 03: de 0 a 7
