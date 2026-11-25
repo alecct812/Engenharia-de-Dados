@@ -1,0 +1,20 @@
+# Regras do lab06 (Exercício 06). Ficam aqui, e não na raiz, porque valem só para
+# esta pasta e prevalecem sobre as da raiz qualquer que seja a ordem de merge.
+
+# Estado e artefatos do Terraform: o estado descreve a infraestrutura inteira e
+# fica no backend remoto; .terraform/ é reconstruído pelo init.
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.bin
+
+# A entrega do Exercício 06 proíbe versionar estes dois: o tfvars traz os valores
+# do grupo (declarados no DECISOES.md) e o backend.hcl nomeia o bucket de estado.
+terraform/terraform.tfvars
+terraform/backend.hcl
+
+# Saídas locais da execução: o que importa delas está no EVIDENCIA.md.
+log-*.txt
+
+# O .terraform.lock.hcl é versionado de propósito: trava a versão do provider.

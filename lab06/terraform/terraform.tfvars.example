@@ -1,0 +1,18 @@
+# Copie para terraform.tfvars e preencha. Os valores abaixo FALHAM de propósito:
+# o plan recusa até o grupo decidir. Cada decisão vira uma frase com número no DECISOES.md.
+turma  = "TURMA-A"
+sufixo = "grupo00" # só minúsculas e números
+
+escopo_prefeitura        = ""   # DECISÃO 01: banco ou tabela
+colunas_ocultas_analista = []   # DECISÃO 02: entre corrida_id, motorista_id e passageiro_id
+
+contrato_refined = {            # DECISÃO 03: o que um consumidor lê no catálogo
+  descricao   = ""              # o que a tabela responde, e o que ela NÃO tem (ao menos 40 caracteres)
+  dono        = ""              # quem responde por ela
+  atualizacao = ""              # quando ela muda
+  comentarios = {
+    bairro   = ""
+    corridas = ""
+    receita  = ""
+  }
+}
